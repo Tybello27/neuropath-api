@@ -1,0 +1,21 @@
+﻿services:
+  - type: web
+    name: prediction-api
+    runtime: python
+    rootDir: prediction-api
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn predict_api:app
+    plan: free
+    envVars:
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_KEY
+        sync: false
+
+  - type: web
+    name: scheduler-api
+    runtime: python
+    rootDir: scheduler-api
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn asp_api:app
+    plan: free
